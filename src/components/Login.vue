@@ -58,12 +58,14 @@ export default {
     login () {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return false
-        const { data: res } = await this.$http.post('login', this.loginForm)
+        // const { data: res } = await this.$http.post('user/login', this.loginForm)
+        const { data: res } = await this.$http.post('user/login', this.$qs.stringify(this.loginForm))
+        // const { data: res } = await this.$http.get('user/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password)
         // 如果登录失败，显示失败信息
-        if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-        // 登录成功，存储token，跳转到主页
-        this.$message.success('登录成功')
-        window.sessionStorage.setItem('token', res.data.token)
+        if (res.status !== '200') return this.$message.error(res.msg)
+        // 登录成功，跳转到主页
+        this.$message.success(res.msg)
+        window.sessionStorage.setItem('token', res.data)
         this.$router.push('/home')
       })
     }
@@ -77,6 +79,7 @@ export default {
   background-color: #fafafa;
 }
 .loginBox{
+  display: flex;
   width: 1000px;
   height: 520px;
   background-color: #ffffff;

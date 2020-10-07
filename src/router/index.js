@@ -2,8 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
+import axios from 'axios'
 
 Vue.use(VueRouter)
+axios.defaults.baseURL = 'http://localhost:8080/'
 
 const routes = [
   { path: '/login', component: Login },
@@ -15,7 +17,7 @@ const router = new VueRouter({
 })
 
 // 路由导航守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   // 如果目标地址是登录页面，放行
   if (to.path === '/login') return next()
   // 否则验证当前浏览器存储的token
