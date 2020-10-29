@@ -1,12 +1,5 @@
 <template>
-  <div class="loginContainer">
-    <div class="loginBox">
-      <!-- 登录框左边logo+图像区域 -->
-      <div class="loginBoxInfo">
-        <img class="logo" src="../assets/image/sicnuLogo.png" alt="">
-        <img class="sciImage" src="../assets/image/SciImage.jpg" alt="">
-      </div>
-      <!-- 登录框表单区域 -->
+  <!-- 登录框表单区域 -->
       <div class="loginBoxContent">
         <el-form ref="loginFormRef" label-width="0px" class="loginForm" :model="loginForm" :rules="loginFormRules">
           <p>登录</p>
@@ -24,14 +17,12 @@
           <div class="btns">
             <el-form-item>
               <el-button type="primary" class="loginBtn" @click="login">登录</el-button>
-              <el-button type="text" class="registerBtn">创建用户</el-button>
+              <el-button type="text" class="registerBtn" @click="gotoRegister">创建用户</el-button>
               <el-button type="text" class="forgetPwdBtn">忘记密码?</el-button>
             </el-form-item>
           </div>
         </el-form>
       </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -58,9 +49,7 @@ export default {
     login () {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return false
-        // const { data: res } = await this.$http.post('user/login', this.loginForm)
         const { data: res } = await this.$http.post('user/login', this.$qs.stringify(this.loginForm))
-        // const { data: res } = await this.$http.get('user/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password)
         // 如果登录失败，显示失败信息
         if (res.status !== '200') return this.$message.error(res.msg)
         // 登录成功，跳转到主页
@@ -68,47 +57,15 @@ export default {
         window.sessionStorage.setItem('token', res.data)
         this.$router.push('/home')
       })
+    },
+    gotoRegister () {
+      this.$router.push('/register')
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.loginContainer{
-  height: 100%;
-  background-color: #fafafa;
-}
-.loginBox{
-  display: flex;
-  width: 1000px;
-  height: 520px;
-  background-color: #ffffff;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px #999999;
-  padding: 40px 0 40px 0;
-}
-.loginBoxInfo{
-  display: inline-block;
-  height: 100%;
-  width: 360px;
-  padding: 0 69px 0 70px;
-  border-right: 1px #e4e4e4 solid;
-  vertical-align: top;
-
-  .logo{
-    display: block;
-    height: 50px;
-    margin: 0 auto;
-  }
-  .sciImage{
-    display: block;
-    width: 325px;
-    margin: 0 auto;
-  }
-}
 .loginBoxContent{
   display: inline-block;
   height: 100%;
