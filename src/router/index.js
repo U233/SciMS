@@ -5,6 +5,8 @@ import Home from '../components/Home.vue'
 import axios from 'axios'
 import Login from '../components/logins/Login.vue'
 import Register from '../components/logins/Register.vue'
+import Welcome from '../components/Welcome.vue'
+import Papers from '../components/achievement/Papers.vue'
 
 Vue.use(VueRouter)
 axios.defaults.baseURL = 'http://localhost:8080/'
@@ -19,7 +21,15 @@ const routes = [
       { path: '/register', component: Register }
     ]
   },
-  { path: '/home', component: Home }
+  {
+    path: '/home',
+    component: Home,
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', component: Welcome },
+      { path: '/papers', component: Papers }
+    ]
+  }
 ]
 
 const router = new VueRouter({
