@@ -8,6 +8,8 @@ import './assets/css/global.css'
 import axios from 'axios'
 // 导入qs
 import qs from 'qs'
+// 导入一下mock
+require('./mock/api')
 
 // 配置请求的根路径
 // baseURL里面是网站的根目录

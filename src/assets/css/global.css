@@ -15,8 +15,20 @@ p, label {
 
 .el-card{
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+  margin-top: 15px !important;
 }
 
 .el-pagination {
   margin-top: 15px;
+}
+
+.columnInput {
+  width: 100%;
+  line-height: 24px;
+  margin-top: 10px;
+}
+
+.el-menu--horizontal>.el-menu-item{
+  height: 40px;
+  line-height: 40px;
 }

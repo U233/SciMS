@@ -57,12 +57,8 @@ export default {
           children: [
             {
               id: 211,
-              name: '查询科研项目',
-              path: 'queryProject'
-            }, {
-              id: 212,
-              name: '管理科研项目',
-              path: 'manageProject'
+              name: '科研项目',
+              path: 'projects'
             }
           ]
         }, {

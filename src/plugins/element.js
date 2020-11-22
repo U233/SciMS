@@ -23,9 +23,15 @@ import {
   Select,
   Option,
   DatePicker,
-  Pagination
+  Pagination,
+  Dialog,
+  Tabs,
+  TabPane
 } from 'element-ui'
 
+Vue.use(TabPane)
+Vue.use(Tabs)
+Vue.use(Dialog)
 Vue.use(Pagination)
 Vue.use(DatePicker)
 Vue.use(Option)

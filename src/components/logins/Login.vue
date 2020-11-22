@@ -5,13 +5,13 @@
           <p>登录</p>
           <!-- 用户名 -->
           <label class="formLabel">用户名 / 邮箱</label>
-          <el-form-item prop="username">
-            <el-input prefix-icon="el-icon-user" v-model="loginForm.username"></el-input>
+          <el-form-item prop="user_act">
+            <el-input prefix-icon="el-icon-user" v-model="loginForm.user_act"></el-input>
           </el-form-item>
           <!-- 密码 -->
           <label class="formLabel">密码</label>
-          <el-form-item prop="password">
-            <el-input prefix-icon="el-icon-lock" v-model="loginForm.password" type="password"></el-input>
+          <el-form-item prop="user_pwd">
+            <el-input prefix-icon="el-icon-lock" v-model="loginForm.user_pwd" type="password"></el-input>
           </el-form-item>
           <!-- 按钮区域 -->
           <div class="btns">
@@ -31,15 +31,15 @@ export default {
     return {
       // 表单绑定对象
       loginForm: {
-        username: 'admin',
-        password: '123456'
+        user_act: 'admin',
+        user_pwd: '123456'
       },
       // 表单验证规则对象
       loginFormRules: {
-        username: [
+        user_act: [
           { required: true, message: '请输入用户名或邮箱', trigger: 'blur' }
         ],
-        password: [
+        user_pwd: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ]
       }
@@ -50,11 +50,12 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return false
         const { data: res } = await this.$http.post('user/login', this.$qs.stringify(this.loginForm))
+        console.log(res)
         // 如果登录失败，显示失败信息
-        if (res.status !== '200') return this.$message.error(res.msg)
+        if (res.status !== '0') return this.$message.error(res.msg)
         // 登录成功，跳转到主页
         this.$message.success(res.msg)
-        window.sessionStorage.setItem('token', res.data)
+        window.sessionStorage.setItem('token', res.data[0].userData.token)
         this.$router.push('/home')
       })
     },
